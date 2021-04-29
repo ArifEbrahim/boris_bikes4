@@ -1,7 +1,20 @@
 require "./lib/docking_station.rb"
 
+
+
 RSpec.describe DockingStation do
   it {is_expected.to respond_to(:release_bike) } 
+
+  it 'has a default capacity' do
+    expect(subject.capacity).to eq DockingStation::DEFAULT_CAPACITY
+  end
+  
+  describe "capacity check" do
+   subject { DockingStation.new(34) }
+   it 'has a variable capacity' do
+   expect(subject.capacity).to eq 34
+   end
+  end
 
   describe "#release_bike" do
     it 'should release a working bike' do
@@ -22,8 +35,7 @@ RSpec.describe DockingStation do
   end
 
   it 'throws an error when full' do
-    puts DockingStation::DEFUALT_CAPACITY
-    20.times { subject.dock(Bike.new) }
+    (subject.capacity).times { subject.dock(Bike.new) }
     expect {subject.dock(Bike.new)}.to raise_error(RuntimeError)
   end
 
