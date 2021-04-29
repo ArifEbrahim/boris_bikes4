@@ -22,9 +22,11 @@ RSpec.describe DockingStation do
   end
 
   it 'throws an error when full' do
+    puts DockingStation::DEFUALT_CAPACITY
     20.times { subject.dock(Bike.new) }
     expect {subject.dock(Bike.new)}.to raise_error(RuntimeError)
   end
+
 
   # it { is_expected.to respond_to(:bike) }
   it "returns docked bike" do
@@ -32,6 +34,5 @@ RSpec.describe DockingStation do
     subject.dock(bike)
     expect(subject.bikes).to include(bike)
   end
-
-
 end
+
