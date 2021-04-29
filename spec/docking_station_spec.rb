@@ -18,14 +18,19 @@ RSpec.describe DockingStation do
   # it {is_expected.to respond_to(:dock).with(1).argument }
   it "docks something" do
     bike = Bike.new
-    expect(subject.dock(bike)).to eq bike
+    expect(subject.dock(bike)).to include(bike)
+  end
+
+  it 'throws an error when full' do
+    20.times { subject.dock(Bike.new) }
+    expect {subject.dock(Bike.new)}.to raise_error(RuntimeError)
   end
 
   # it { is_expected.to respond_to(:bike) }
   it "returns docked bike" do
     bike = Bike.new
     subject.dock(bike)
-    expect(subject.bike).to eq bike
+    expect(subject.bikes).to include(bike)
   end
 
 
