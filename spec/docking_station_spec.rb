@@ -3,9 +3,16 @@ require "./lib/docking_station.rb"
 RSpec.describe DockingStation do
   it {is_expected.to respond_to(:release_bike) } 
 
-  it 'should release a bike when requested' do
-    bike = subject.release_bike
-    expect(bike).to be_working 
+  describe "#release_bike" do
+    it 'should release a working bike' do
+      bike = Bike.new
+      subject.dock(bike)
+      expect(subject.release_bike).to be_working 
+    end
+
+    it "throws an error when empty + release bike" do
+      expect {subject.release_bike}.to raise_error(RuntimeError)
+    end
   end
 
   # it {is_expected.to respond_to(:dock).with(1).argument }
@@ -20,5 +27,6 @@ RSpec.describe DockingStation do
     subject.dock(bike)
     expect(subject.bike).to eq bike
   end
+
 
 end
