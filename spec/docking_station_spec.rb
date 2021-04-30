@@ -3,7 +3,7 @@ require "./lib/docking_station.rb"
 RSpec.describe DockingStation do
   describe "#release_bike" do
     it "releases a bike" do
-      bike = Bike.new
+      bike = double(:bike)
       subject.dock(bike)
       expect(subject.release_bike).to eq bike
     end
@@ -13,15 +13,15 @@ RSpec.describe DockingStation do
     end
 
     it "releases a working bike" do
-      subject.dock(Bike.new)
-      bike = Bike.new
+      subject.dock(double(:bike))
+      bike = double(:bike)
       bike.broken
       subject.dock(bike)
       expect(subject.release_bike).to be_working
     end
   
     it "returns a docked bike" do
-      bike = Bike.new
+      bike = double(:bike)
       subject.dock(bike)
       expect(subject.release_bike).to eq(bike)
     end
@@ -29,13 +29,13 @@ RSpec.describe DockingStation do
 
   describe "#dock" do
     it 'docks a bike' do 
-      bike = Bike.new
+      bike = double(:bike)
       expect(subject.dock(bike)).to include(bike)
     end
 
     it "raises an error when trying to dock a bike when full" do
-      subject.capacity.times { subject.dock(Bike.new) }
-      expect { subject.dock(Bike.new) }.to raise_error(RuntimeError)
+      subject.capacity.times { subject.dock(double(:bike)) }
+      expect { subject.dock(double(:bike)) }.to raise_error(RuntimeError)
     end
   end
 
