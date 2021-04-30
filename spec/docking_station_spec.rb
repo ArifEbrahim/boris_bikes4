@@ -13,7 +13,9 @@ RSpec.describe DockingStation do
     end
 
     it "releases a working bike" do
+      subject.dock(Bike.new)
       bike = Bike.new
+      bike.broken
       subject.dock(bike)
       expect(subject.release_bike).to be_working
     end
